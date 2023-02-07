@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "f1f7a06f40c6aadb4beb2a78f380f9938d574fa7"
+      }
+    },
+    {
+      "identity" : "jgprogresshud",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/JonasGessner/JGProgressHUD.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "103d67f308b8c0c18926061025549af98cdfd6fc"
+      }
+    }
+  ],
+  "version" : 2
+}

@@ -8,6 +8,7 @@
 import UIKit
 
 class HomeViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+    @Published var isLoading = false
 
     @IBOutlet weak var tableView: UITableView!
     var items : Array<Post> = Array()
@@ -138,4 +139,36 @@ class HomeViewController: BaseViewController, UITableViewDelegate, UITableViewDa
             self.callEditViewController()
         }
     }
+    
+    func apiPostCreate(post:Post,handler: @escaping (Bool) -> Void){
+            isLoading = true
+            AFHttp.post(url: AFHttp.API_POST_CREATE, params: AFHttp.paramsPostCreate(post: post), handler: {response in
+                self.isLoading = false
+                
+                switch response.result {
+                case .success:
+                    print(response.result)
+                    handler(true)
+                case let .failure(error):
+                    print(error)
+                    handler(false)
+                }
+            })
+        }
+        
+        func apiPostUpdate(post:Post,handler: @escaping (Bool) -> Void){
+            isLoading = true
+            AFHttp.put(url: AFHttp.API_POST_UPDATE + String(post.id!), params: AFHttp.paramsPostUpdate(post: post), handler: {response in
+                self.isLoading = false
+                
+                switch response.result {
+                case .success:
+                    print(response.result)
+                    handler(true)
+                case let .failure(error):
+                    print(error)
+                    handler(false)
+                }
+            })
+        }
 }
