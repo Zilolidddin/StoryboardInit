@@ -19,33 +19,6 @@ class HomeViewController: BaseViewController, UITableViewDelegate, UITableViewDa
         initViews()
     }
     
-    func apiPostList(){
-        showProgress()
-        AFHttp.get(url: AFHttp.API_POST_LIST, params: AFHttp.paramsEmpty(), handler: { response in
-            self.hideProgress()
-            switch response.result {
-            case .success:
-                let posts = try! JSONDecoder().decode([Post].self, from: response.data!)
-                self.refreshTableView(posts: posts)
-            case let .failure(error):
-                print(error)
-            }
-        })
-    }
-    
-    func apiPostDelete(post:Post){
-        showProgress()
-        AFHttp.del(url: AFHttp.API_POST_DELETE + post.id!, params: AFHttp.paramsEmpty(), handler: {response in
-            self.hideProgress()
-            switch response.result {
-            case .success:
-                print(response.result)
-                self.apiPostList()
-            case let .failure(error):
-                print(error)
-            }
-        })
-    }
     
     func refreshTableView(posts: [Post]){
         self.items =  posts
@@ -171,4 +144,33 @@ class HomeViewController: BaseViewController, UITableViewDelegate, UITableViewDa
                 }
             })
         }
+    
+    func apiPostList(){
+        showProgress()
+        AFHttp.get(url: AFHttp.API_POST_LIST, params: AFHttp.paramsEmpty(), handler: { response in
+            self.hideProgress()
+            switch response.result {
+            case .success:
+                let posts = try! JSONDecoder().decode([Post].self, from: response.data!)
+                self.refreshTableView(posts: posts)
+            case let .failure(error):
+                print(error)
+            }
+        })
+    }
+    
+    func apiPostDelete(post:Post){
+        showProgress()
+        AFHttp.del(url: AFHttp.API_POST_DELETE + post.id!, params: AFHttp.paramsEmpty(), handler: {response in
+            self.hideProgress()
+            switch response.result {
+            case .success:
+                print(response.result)
+                self.apiPostList()
+            case let .failure(error):
+                print(error)
+            }
+        })
+    }
+
 }
